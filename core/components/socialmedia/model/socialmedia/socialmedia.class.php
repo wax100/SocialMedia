@@ -159,7 +159,7 @@
 				if (isset($this->properties['providers'][$type])) {
 					if (false !== ($data = $provider->get($this->properties['providers'][$type]))) {
 						foreach ($data as $key => $value) {
-							$output[] = $value;
+							$output[strtotime($value['createdon'])] = $value;
 							
 							if (0 != $this->properties['limit'] && $this->properties['limit'] - 1 == $key) {
 								break;
@@ -168,6 +168,8 @@
 					}
 				}
 			}
+			
+			krsort($output);
 			
 			foreach ($output as $key => $value) {
 				$class = array();

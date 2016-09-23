@@ -72,11 +72,21 @@
 						
 						if ($data) {
 							foreach ($data as $key => $value) {
+								$media		= '';
+								$content	= $value['text'];
+								
+								if (isset($value['entities']['media'])) {
+									foreach ($value['entities']['media'] as $mediaValue) {
+										$media 		= $mediaValue['media_url'];
+										$content 	= str_replace($mediaValue['url'], '', $content);
+									}
+								}
+								
 								$output[] = array(
 									'type'				=> 'Twitter',
 									'id'				=> $value['id'],
 									'createdon'			=> $value['created_at'],
-									'content'			=> $value['text'],
+									'content'			=> trim($content),
 									'user_id'			=> $value['user']['id'],
 									'user_name'			=> $value['user']['name'],
 									'user_account'		=> $value['user']['screen_name'],
@@ -87,7 +97,8 @@
 									'user_following'	=> $value['user']['friends_count'],
 									'user_tweets'		=> $value['user']['statuses_count'],
 									'user_image'		=> isset($value['user']['profile_image_url']) ? $value['user']['profile_image_url'] : '',
-									'user_banner'		=> isset($value['user']['profile_banner_url']) ? $value['user']['profile_banner_url'] : ''
+									'user_banner'		=> isset($value['user']['profile_banner_url']) ? $value['user']['profile_banner_url'] : '',
+									'media'				=> $media
 								);
 							}
 						}
@@ -100,11 +111,21 @@
 	
 						if ($data) {
 							foreach ($data['statuses'] as $key => $value) {
+								$media		= '';
+								$content	= $value['text'];
+								
+								if (isset($value['entities']['media'])) {
+									foreach ($value['entities']['media'] as $mediaValue) {
+										$media 		= $mediaValue['media_url'];
+										$content 	= str_replace($mediaValue['url'], '', $content);
+									}
+								}
+								
 								$output[] = array(
 									'type'				=> 'Twitter',
 									'id'				=> $value['id'],
 									'createdon'			=> $value['created_at'],
-									'content'			=> $value['text'],
+									'content'			=> trim($content),
 									'user_id'			=> $value['user']['id'],
 									'user_name'			=> $value['user']['name'],
 									'user_account'		=> $value['user']['screen_name'],
@@ -115,15 +136,16 @@
 									'user_following'	=> $value['user']['friends_count'],
 									'user_tweets'		=> $value['user']['statuses_count'],
 									'user_image'		=> isset($value['user']['profile_image_url']) ? $value['user']['profile_image_url'] : '',
-									'user_banner'		=> isset($value['user']['profile_banner_url']) ? $value['user']['profile_banner_url'] : ''
+									'user_banner'		=> isset($value['user']['profile_banner_url']) ? $value['user']['profile_banner_url'] : '',
+									'media'				=> $media
 								);
 							}
 						}
-				
+						
 						break;
 				}
 			}
-			
+
 			if (is_array($output)) {
 				$sort = array();
 				
