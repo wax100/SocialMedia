@@ -1,0 +1,22 @@
+----------------------
+Social Media
+----------------------
+
+----------------------
+Version: 1.1.0
+Released: 2017-05-02
+----------------------
+- Some bugfixes
+- New social media channels
+	- Facebook support
+	- LinkedIn support
+	- Pinterest support
+	- Youtube support
+	
+----------------------
+Version: 1.0.0
+Released: 2016-09-20
+----------------------
+- First release
+	- Twitter support
+	- Instagram support
