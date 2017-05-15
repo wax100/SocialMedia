@@ -62,6 +62,7 @@
 				'cronjobs_path' 		=> $corePath.'elements/cronjobs/',
 				'plugins_path' 			=> $corePath.'elements/plugins/',
 				'snippets_path' 		=> $corePath.'elements/snippets/',
+				'templates_path' 		=> $corePath.'templates/',
 				'assets_path' 			=> $assetsPath,
 				'js_url' 				=> $assetsUrl.'js/',
 				'css_url' 				=> $assetsUrl.'css/',

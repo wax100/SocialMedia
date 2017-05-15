@@ -59,7 +59,7 @@
 		 * @returns Boolean.
 		 */	    
 		public function checkPermissions() {
-			return true;
+			return $this->modx->hasPermission('socialmedia');
 		}
 	}
 		

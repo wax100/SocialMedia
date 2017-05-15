@@ -21,7 +21,7 @@
 
 	$xpdo_meta_map = array(
 		'xPDOSimpleObject' => array(
-			0 => 'SocialMediaMessages'
+	    	0 => 'SocialMediaMessages'
 	    )
 	);
 	
