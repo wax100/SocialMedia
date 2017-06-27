@@ -5,7 +5,7 @@ SocialMedia.panel.Home = function(config) {
         id			: 'socialmedia-panel-home',
         cls			: 'container',
         items		: [{
-            html		: '<h2>'+_('socialmedia')+'</h2>',
+            html		: '<h2>' + _('socialmedia') + '</h2>',
             id			: 'socialmedia-header',
             cls			: 'modx-page-header'
         }, {

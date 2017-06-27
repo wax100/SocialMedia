@@ -238,7 +238,7 @@ Ext.extend(SocialMedia.grid.Messages, MODx.grid.Grid, {
         	text		: _('socialmedia.message_deactivate_confirm'),
         	url			: SocialMedia.config.connector_url,
         	params		: {
-            	action		: 'mgr/messages/up1date',
+            	action		: 'mgr/messages/update',
             	id			: this.menu.record.id,
             	active 		: 0
             },

@@ -53,24 +53,7 @@
 		 * @return Array.
 		 */
 		public function process() {
-			$output = array();
-			
-			$path = $this->modx->getOption('socialmedia.core_path', null, $this->modx->getOption('core_path').'components/socialmedia/').'model/socialmedia/sources/';
-			
-			foreach (new DirectoryIterator($path) as $file) {
-				$filename = trim($file->getFilename(), '/');
-				
-				if (!in_array($filename, array('.', '..'))) {
-					if ($file->isDir()) {
-						$output[] = array(
-							'type'	=> $filename,
-							'label'	=> ucfirst($filename)
-						);
-					}
-				}
-			}
-			
-			return $this->outputArray($output);
+			return $this->outputArray(array_values($this->socialmedia->getAvailableSources()));
 		}
 	}
 

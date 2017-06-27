@@ -68,7 +68,7 @@
 				'css_url' 				=> $assetsUrl.'css/',
 				'assets_url' 			=> $assetsUrl,
 				'connector_url'			=> $assetsUrl.'connector.php',
-				'version'				=> '1.1.0',
+				'version'				=> '1.1.1',
 				'branding'				=> (boolean) $this->modx->getOption('socialmedia.branding', null, true),
 				'branding_url'			=> 'http://www.oetzie.nl',
 				'branding_help_url'		=> 'http://www.werkvanoetzie.nl/extras/socialmedia',
@@ -129,6 +129,31 @@
 		
 		/**
 		 * @access public.
+		 * @return Array.
+		 */
+		public function getAvailableSources() {
+			$path = $this->modx->getOption('socialmedia.core_path', null, $this->modx->getOption('core_path').'components/socialmedia/').'model/socialmedia/sources/';
+
+			$sources = array();
+			
+			foreach (new DirectoryIterator($path) as $file) {
+				$filename = trim($file->getFilename(), '/');
+				
+				if (!in_array($filename, array('.', '..'))) {
+					if ($file->isDir()) {
+						$sources[$filename] = array(
+							'type'	=> $filename,
+							'label'	=> ucfirst($filename)
+						);
+					}
+				}
+			}
+			
+			return $sources;
+		}
+		
+		/**
+		 * @access public.
 		 * @param String $source.
 		 * @return Object|Null.
 		 */
@@ -153,6 +178,7 @@
 		 */
 		public function setScriptProperties($scriptProperties = array()) {
 			$this->properties = array_merge(array(
+				'filter'		=> '',
 				'group'			=> '',
 				'limit'			=> 5,
 				'tpls'			=> '{}',
@@ -170,6 +196,10 @@
 		 * @return Boolean.
 		 */
 		protected function setDefaultProperties() {
+			if (is_string($this->properties['filter'])) {
+				$this->properties['filter'] = array_filter(explode(',', $this->properties['filter']));
+			}
+			
 			if (is_string($this->properties['limit'])) {
 				$this->properties['limit'] = (int) $this->properties['limit'];
 			}
@@ -212,16 +242,33 @@
 			$c = $this->modx->newQuery('SocialMediaMessages');
 			
 			$c->where(array(
-				'active' 		=> 1,
-				'content:!='	=> ''
+				'active' => 1
 			));
 			
 			foreach (array_filter(explode(',', $this->config['word_filter'])) as $word) {
-				if (empty($words)) {
+				$word = trim($word);
+				
+				if (!empty($word)) {
 					$c->where(array(
-						'content:NOT LIKE'	=> '%'.trim($word).'%'
+						'content:NOT LIKE' => '%'.$word.'%'
 					));
 				}
+			}
+			
+			if (!empty($this->properties['filter'])) {
+				$words = array();
+				
+				foreach ($this->properties['filter'] as $word) {
+					$word = trim($word);
+				
+					if (!empty($word)) {
+						$words[] = array(
+							'content:LIKE' => '%'.$word.'%'
+						);
+					}
+				}
+
+				$c->where($words, xPDOQuery::SQL_OR);
 			}
 			
 			if (!empty($this->properties['sources'])) {
@@ -246,7 +293,26 @@
 				
 				$c->where($sources, xPDOQuery::SQL_OR);
 			}
+			
+			$emptySources = array();
+			
+			foreach ($this->getAvailableSources() as $key => $value) {
+				if (null !== ($source = $this->getSource($key))) {
+					if ($source->showEmptyPosts()) {
+						$emptySources[] = array(
+							'source'			=> $key
+						);
+					} else {
+						$emptySources[] = array(
+							'source'			=> $key,
+							'AND:content:!='	=> ''
+						);
+					}
+				}
+			}
 
+			$c->where($emptySources, xPDOQuery::SQL_OR);
+			
 			if (is_array($this->properties['sort'])) {
 				foreach ($this->properties['sort'] as $key => $value) {
 					$c->sortby($key, $value);
@@ -260,7 +326,7 @@
 			if (0 != $this->properties['limit']) {
 				$c->limit($this->properties['limit']);
 			}
-			
+
 			$output	= array();
 			$data	= array_values($this->modx->getCollection('SocialMediaMessages', $c));
 			

@@ -124,7 +124,8 @@
 			'created' 	=> array(
 				'dbtype' 	=> 'timestamp',
 				'phptype' 	=> 'timestamp',
-				'null' 		=> false
+				'null' 		=> false,
+				'default'	=>'0000-00-00 00:00:00'
 			)
 		),
 		'indexes'	=> array(

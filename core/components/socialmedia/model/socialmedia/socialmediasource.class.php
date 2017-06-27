@@ -70,6 +70,14 @@
 		
 		/**
 		 * @access public.
+		 * @return Boolean.
+		 */
+		public function showEmptyPosts() {
+			return (bool) $this->modx->getOption('socialmedia.source_'.strtolower($this->getName()).'_empty_posts', null, false);
+		}
+		
+		/**
+		 * @access public.
 		 * @param Array $data.
 		 * @return Array.
 	     */
