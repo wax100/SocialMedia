@@ -3,6 +3,15 @@ Social Media
 ----------------------
 
 ----------------------
+Version: 1.2.0
+Released: 2017-08-31
+----------------------
+- Some bugfixes
+- Github issues
+	- Issue #7 fixed
+	- Issue #8 fixed
+	
+----------------------
 Version: 1.1.1
 Released: 2017-06-23
 ----------------------

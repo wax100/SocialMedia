@@ -19,13 +19,17 @@
 	 * Suite 330, Boston, MA 02111-1307 USA
 	 */
 
-	$_lang['socialmedia'] 													= 'Social media';
+	$_lang['socialmedia'] 													= 'Social Media';
 	$_lang['socialmedia.desc']												= 'Manage all social media messages.';
 		
-	$_lang['area_socialmedia']												= 'Social media';
+	$_lang['area_socialmedia']												= 'Social Media';
 	
+	$_lang['setting_socialmedia.branding_url']              				= 'Branding';
+    $_lang['setting_socialmedia.branding_url_desc']         				= 'The URL of the branding button, if the URL is empty the branding button won\'t be shown.';
+    $_lang['setting_socialmedia.branding_url_help']         				= 'Branding (help)';
+    $_lang['setting_socialmedia.branding_url_help_desc']   		 			= 'The URL of the branding help button, if the URL is empty the branding help button won\'t be shown.';
 	$_lang['setting_socialmedia.api_useragent']								= 'API useragent';
-	$_lang['setting_socialmedia.api_useragent_desc']						= 'The useragent for the APIs. Default is "SocialMediaOAuth v1.1.0".';
+	$_lang['setting_socialmedia.api_useragent_desc']						= 'The useragent for the APIs. Default is "SocialMediaOAuth v1.2.0".';
 	$_lang['setting_socialmedia.default_active']							= 'Default status';
 	$_lang['setting_socialmedia.default_active_desc']						= 'The default status of the social media messages during the synchronizing of the social media channels.';
 	$_lang['setting_socialmedia.default_sources']							= 'Default channels';
@@ -103,6 +107,8 @@
 	$_lang['socialmedia.message_activate_confirm']							= 'Are you sure you want to show this message?';
 	$_lang['socialmedia.message_deactivate']								= 'Hide message';
 	$_lang['socialmedia.message_deactivate_confirm']						= 'Are you sure you want to hide this message?';
+	$_lang['socialmedia.messages_reset']									= 'Delete all forms';
+	$_lang['socialmedia.messages_reset_confirm']							= 'Are you sure you want to delete all the messages?';
 	
 	$_lang['socialmedia.label_source']										= 'Channel';
 	$_lang['socialmedia.label_source_desc']									= '';

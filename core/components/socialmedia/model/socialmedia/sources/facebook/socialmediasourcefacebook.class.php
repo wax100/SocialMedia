@@ -139,6 +139,17 @@
 				'created'		=> date('Y-m-d H:i:s', strtotime($data['created_time']))
 			);
 		}
+		
+		/**
+		 * @access public.
+		 * @param String $content.
+		 * @return String.
+		 */
+		public function getHtmlFormat($content) {
+			$content = preg_replace("/#(\w+)/", "<a href=\"https://www.facebook.com/hashtag/\\1\" target=\"_blank\">#\\1</a>", $content);
+			
+			return $content;
+		}
 	}
 
 ?>

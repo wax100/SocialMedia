@@ -68,10 +68,9 @@
 				'css_url' 				=> $assetsUrl.'css/',
 				'assets_url' 			=> $assetsUrl,
 				'connector_url'			=> $assetsUrl.'connector.php',
-				'version'				=> '1.1.1',
-				'branding'				=> (boolean) $this->modx->getOption('socialmedia.branding', null, true),
-				'branding_url'			=> 'http://www.oetzie.nl',
-				'branding_help_url'		=> 'http://www.werkvanoetzie.nl/extras/socialmedia',
+				'version'				=> '1.2.0',
+				'branding_url'			=> $this->modx->getOption('socialmedia.branding_url', null, ''),
+				'branding_help_url'		=> $this->modx->getOption('socialmedia.branding_url_help', null, ''),
 				'word_filter'			=> $this->modx->getOption('socialmedia.word_filter', null, '')
 			), $config);
 			
@@ -88,11 +87,27 @@
 		
 		/**
 		 * @access public.
-		 * @return String.
+		 * @return String|Boolean.
 		 */
 		public function getHelpUrl() {
-			return $this->config['branding_help_url'].'?v='.$this->config['version'];
+		    if (!empty($this->config['branding_help_url'])) {
+                return $this->config['branding_help_url'].'?v=' . $this->config['version'];
+            }
+
+            return false;
 		}
+
+        /**
+         * @access public.
+         * @return String|Boolean.
+         */
+        public function getBrandingUrl() {
+            if (!empty($this->config['branding_url'])) {
+                return $this->config['branding_url'];
+            }
+
+            return false;
+        }
 				
 		/**
 		 * @access protected.
@@ -255,22 +270,6 @@
 				}
 			}
 			
-			if (!empty($this->properties['filter'])) {
-				$words = array();
-				
-				foreach ($this->properties['filter'] as $word) {
-					$word = trim($word);
-				
-					if (!empty($word)) {
-						$words[] = array(
-							'content:LIKE' => '%'.$word.'%'
-						);
-					}
-				}
-
-				$c->where($words, xPDOQuery::SQL_OR);
-			}
-			
 			if (!empty($this->properties['sources'])) {
 				$sources = array();
 				
@@ -330,6 +329,12 @@
 			$output	= array();
 			$data	= array_values($this->modx->getCollection('SocialMediaMessages', $c));
 			
+			foreach ($this->properties['filter'] as $key => $value) {
+				$data = $this->modx->runSnippet($value, array(
+					'data' => $data
+				));
+			}
+			
 			if ('' != ($group = $this->properties['group'])) {
 				if (is_numeric($group)) {
 					$output = array_chunk($data, (int) $group, true);
@@ -345,79 +350,83 @@
 			}
 
 			foreach ($output as $mainKey => $group) {
-				foreach ($group as $key => $value) {
-					$class = array();
-								
-					if (0 == $key) {
-						$class[] = 'first';
-					}
-					
-					if (count($output) - 1 == $key) {
-						$class[] = 'last';
-					}
-					
-					$class[] = 0 == $key % 2 ? 'odd' : 'even';
-					$class[] = strtolower($value->source);
-					
-					if (!empty($value->image)) {
-						$class[] = 'has-image';
-					}
-					
-					if (!empty($value->video)) {
-						$class[] = 'has-video';
-					}
-					
-					//if ((bool) $this->properties['toJson']) {
-					//	$group[$key] = array_merge(array(
-					//		'content_html'	=> $this->getHtmlFormat($value->content, $value->source),
-					//		'time_ago'		=> $this->getTimeAgo($value->created)
-					//	), $value->toArray());
-					//} else {
-						$tpl = '';
-						
-						if (isset($this->properties['tpl'])) {
-							$tpl = $this->properties['tpl'];
+				if (0 < count($group)) {
+					foreach ($group as $key => $value) {
+						$class = array();
+									
+						if (0 == $key) {
+							$class[] = 'first';
 						}
 						
-						if (isset($this->properties['tpls'])) {
-							$tpls = $this->properties['tpls'];
+						if (count($output) - 1 == $key) {
+							$class[] = 'last';
+						}
+						
+						$class[] = 0 == $key % 2 ? 'odd' : 'even';
+						$class[] = strtolower($value->source);
+						
+						if (!empty($value->image)) {
+							$class[] = 'has-image';
+						}
+						
+						if (!empty($value->video)) {
+							$class[] = 'has-video';
+						}
+						
+						//if ((bool) $this->properties['toJson']) {
+						//	$group[$key] = array_merge(array(
+						//		'content_html'	=> $this->getHtmlFormat($value->content, $value->source),
+						//		'time_ago'		=> $this->getTimeAgo($value->created)
+						//	), $value->toArray());
+						//} else {
+							$tpl = '';
 							
-							if (isset($tpls[strtolower($value->source)])) {
-								$tpl = $tpls[strtolower($value->source)];
+							if (isset($this->properties['tpl'])) {
+								$tpl = $this->properties['tpl'];
+							}
+							
+							if (isset($this->properties['tpls'])) {
+								$tpls = $this->properties['tpls'];
+								
+								if (isset($tpls[strtolower($value->source)])) {
+									$tpl = $tpls[strtolower($value->source)];
+								}
+							}
+							
+							$group[$key] = $this->getTemplate($tpl, array_merge(array(
+								'class' 		=> implode(' ', $class),
+								'content_html'	=> $this->getHtmlFormat($value->content, $value->source),
+								'time_ago'		=> $this->getTimeAgo($value->created)
+							), $value->toArray()));
+						//}
+					}
+					
+					//if (!(bool) $this->properties['toJson']) {
+						$tpl = '';
+						
+						if (isset($this->properties['tplGroup'])) {
+							$tpl = $this->properties['tplGroup'];
+						}
+						
+						if (isset($this->properties['tplsGroup'])) {
+							$tpls = $this->properties['tplsGroup'];
+							
+							if (isset($tpls[$mainKey])) {
+								$tpl = $tpls[$mainKey];
 							}
 						}
 						
-						$group[$key] = $this->getTemplate($tpl, array_merge(array(
-							'class' 		=> implode(' ', $class),
-							'content_html'	=> $this->getHtmlFormat($value->content, $value->source),
-							'time_ago'		=> $this->getTimeAgo($value->created)
-						), $value->toArray()));
-					//}
-				}
-				
-				//if (!(bool) $this->properties['toJson']) {
-					$tpl = '';
-					
-					if (isset($this->properties['tplGroup'])) {
-						$tpl = $this->properties['tplGroup'];
-					}
-					
-					if (isset($this->properties['tplsGroup'])) {
-						$tpls = $this->properties['tplsGroup'];
-						
-						if (isset($tpls[$mainKey])) {
-							$tpl = $tpls[$mainKey];
+						if (!empty($tpl)) {
+							$output[$mainKey] = $this->getTemplate($this->properties['tplWrapper'], array(
+								'output' => implode(PHP_EOL, $group)
+							));
+						} else {
+							$output[$mainKey] = implode(PHP_EOL, $group);
 						}
-					}
-					
-					if (!empty($tpl)) {
-						$output[$mainKey] = $this->getTemplate($this->properties['tplWrapper'], array(
-							'output' => implode(PHP_EOL, $group)
-						));
-					} else {
-						$output[$mainKey] = implode(PHP_EOL, $group);
-					}
-				//}
+					//}
+				} else {
+					unset($output[$mainKey]);
+				}
 			}
 			
 			if (0 < count($output)) {

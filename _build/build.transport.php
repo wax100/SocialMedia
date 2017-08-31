@@ -8,7 +8,7 @@
 	define('PKG_NAME', 			'SocialMedia');
 	define('PKG_NAME_LOWER', 	strtolower(PKG_NAME));
 	define('PKG_NAMESPACE', 	strtolower(PKG_NAME));
-	define('PKG_VERSION',		'1.1.1');
+	define('PKG_VERSION',		'1.2.0');
 	define('PKG_RELEASE',		'pl');
 
 	define('PRIVATE_PATH',		dirname(dirname(dirname(__FILE__))).'/private_html/');
@@ -19,10 +19,10 @@
 	    'build' 		=> PUBLIC_PATH.'_build/',
 	    'data' 			=> PUBLIC_PATH.'_build/data/',
 	    'resolvers' 	=> PUBLIC_PATH.'_build/resolvers/',
-	    'assets' 		=> PUBLIC_PATH.'assets/components/'.PKG_NAME_LOWER,
-	    'cronjobs' 		=> PUBLIC_PATH.'assets/components/'.PKG_NAME_LOWER.'/cronjobs/',
 	    'core' 			=> PRIVATE_PATH.'core/components/'.PKG_NAME_LOWER,
+	    'assets' 		=> PUBLIC_PATH.'assets/components/'.PKG_NAME_LOWER,
 	    'chunks' 		=> PRIVATE_PATH.'core/components/'.PKG_NAME_LOWER.'/elements/chunks/',
+	    'cronjobs' 		=> PRIVATE_PATH.'core/components/'.PKG_NAME_LOWER.'/elements/cronjobs/',
 	    'plugins' 		=> PRIVATE_PATH.'core/components/'.PKG_NAME_LOWER.'/elements/plugins/',
 	    'snippets' 		=> PRIVATE_PATH.'core/components/'.PKG_NAME_LOWER.'/elements/snippets/',
 	    'widgets' 		=> PRIVATE_PATH.'core/components/'.PKG_NAME_LOWER.'/elements/widgets/',

@@ -7,7 +7,7 @@ SocialMedia.page.Home = function(config) {
 	
 	config.buttons = [];
 	
-	if (SocialMedia.config.branding) {
+	if (SocialMedia.config.branding_url) {
 		config.buttons.push({
 			text 		: 'SocialMedia ' + SocialMedia.config.version,
 			cls			: 'x-btn-branding',
@@ -15,11 +15,13 @@ SocialMedia.page.Home = function(config) {
 		});
 	}
 	
-	config.buttons.push({
-		text		: _('help_ex'),
-		handler		: MODx.loadHelpPane,
-		scope		: this
-	});
+	if (SocialMedia.config.branding_url_help) {
+		config.buttons.push({
+			text		: _('help_ex'),
+			handler		: MODx.loadHelpPane,
+			scope		: this
+		});
+	}
 	
 	Ext.applyIf(config, {
 		components	: [{

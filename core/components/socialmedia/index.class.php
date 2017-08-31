@@ -38,8 +38,11 @@
 			$this->addHtml('<script type="text/javascript">
 				Ext.onReady(function() {
 					MODx.config.help_url = "'.$this->socialmedia->getHelpUrl().'";
-					
-					SocialMedia.config = '.$this->modx->toJSON($this->socialmedia->config).';
+
+					SocialMedia.config = '.$this->modx->toJSON(array_merge($this->socialmedia->config, array(
+                        'branding_url'          => $this->socialmedia->getBrandingUrl(),
+                        'branding_url_help'     => $this->socialmedia->getHelpUrl()
+                    ))).';
 				});
 			</script>');
 			

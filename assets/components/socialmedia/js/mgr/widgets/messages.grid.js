@@ -6,7 +6,14 @@ SocialMedia.grid.Messages = function(config) {
         cls			:'primary-button',
         handler		: this.updateWordFilter,
         scope		: this
-    }, '->', {
+    }, {
+		text		: _('bulk_actions'),
+		menu		: [{
+			text		: _('socialmedia.messages_reset'),
+			handler		: this.resetMessages,
+			scope		: this
+		}]
+	}, '->', {
     	xtype		: 'socialmedia-combo-criterea',
     	name		: 'socialmedia-filter-criterea',
         id			: 'socialmedia-filter-criterea',
@@ -241,6 +248,22 @@ Ext.extend(SocialMedia.grid.Messages, MODx.grid.Grid, {
             	action		: 'mgr/messages/update',
             	id			: this.menu.record.id,
             	active 		: 0
+            },
+            listeners	: {
+            	'success'	: {
+            		fn			: this.refresh,
+            		scope		: this
+            	}
+            }
+    	});
+    },
+    resetMessages: function(btn, e) {
+    	MODx.msg.confirm({
+        	title 		: _('socialmedia.messages_reset'),
+        	text		: _('socialmedia.messages_reset_confirm'),
+        	url			: SocialMedia.config.connector_url,
+        	params		: {
+            	action		: 'mgr/messages/reset'
             },
             listeners	: {
             	'success'	: {

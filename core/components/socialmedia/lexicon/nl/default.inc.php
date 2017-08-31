@@ -19,13 +19,17 @@
 	 * Suite 330, Boston, MA 02111-1307 USA
 	 */
 
-	$_lang['socialmedia'] 													= 'Social media';
+	$_lang['socialmedia'] 													= 'Social Media';
 	$_lang['socialmedia.desc']												= 'Beheer alle social media berichten.';
 		
-	$_lang['area_socialmedia']												= 'Social media';
+	$_lang['area_socialmedia']												= 'Social Media';
 	
+	$_lang['setting_socialmedia.branding_url']              				= 'Branding';
+	$_lang['setting_socialmedia.branding_url_desc']        					= 'De URL waar de branding knop heen verwijst, indien leeg wordt de branding knop niet getoond.';
+    $_lang['setting_socialmedia.branding_url_help']         				= 'Branding (help)';
+    $_lang['setting_socialmedia.branding_url_help_desc']    				= 'De URL waar de branding help knop heen verwijst, indien leeg wordt de branding help knop niet getoond.';
 	$_lang['setting_socialmedia.api_useragent']								= 'API useragent';
-	$_lang['setting_socialmedia.api_useragent_desc']						= 'De useragent voor de API\'s. Standaard is "SocialMediaOAuth v1.1.0".';
+	$_lang['setting_socialmedia.api_useragent_desc']						= 'De useragent voor de API\'s. Standaard is "SocialMediaOAuth v1.2.0".';
 	$_lang['setting_socialmedia.default_active']							= 'Standaard status';
 	$_lang['setting_socialmedia.default_active_desc']						= 'De standaard status van de social media berichten tijdens het synchroniseren van de social media kanalen.';
 	$_lang['setting_socialmedia.default_sources']							= 'Standaard kanalen';
@@ -103,6 +107,8 @@
 	$_lang['socialmedia.message_activate_confirm']							= 'Weet je zeker dat je dit bericht wilt weergeven?';
 	$_lang['socialmedia.message_deactivate']								= 'Bericht verbergen';
 	$_lang['socialmedia.message_deactivate_confirm']						= 'Weet je zeker dat je dit bericht wilt verbergen?';
+	$_lang['socialmedia.messages_reset']									= 'Alle berichten verwijderen';
+	$_lang['socialmedia.messages_reset_confirm']							= 'Weet je zeker dat je alle berichten wilt verwijderen?';
 	
 	$_lang['socialmedia.label_source']										= 'Kanaal';
 	$_lang['socialmedia.label_source_desc']									= '';
