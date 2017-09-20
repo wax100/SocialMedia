@@ -8,7 +8,7 @@
 	define('PKG_NAME', 			'SocialMedia');
 	define('PKG_NAME_LOWER', 	strtolower(PKG_NAME));
 	define('PKG_NAMESPACE', 	strtolower(PKG_NAME));
-	define('PKG_VERSION',		'1.2.0');
+	define('PKG_VERSION',		'1.2.1');
 	define('PKG_RELEASE',		'pl');
 
 	define('PRIVATE_PATH',		dirname(dirname(dirname(__FILE__))).'/private_html/');
@@ -61,7 +61,7 @@
 			$category->addMany($chunk);
 		}
 		
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packed chunk(s) '.count($chunks).' into category.');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packed '.count($chunks).' chunk(s) into category.');
 	} else {
 		$modx->log(modX::LOG_LEVEL_INFO, 'No chunk(s) to pack...');
 	}
@@ -75,7 +75,7 @@
 			$category->addMany($cronjob);
 		}
 
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packed cronjobs(s) '.count($cronjobs).' into category.');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packed '.count($cronjobs).' cronjobs(s) into category.');
 	} else {
 		$modx->log(modX::LOG_LEVEL_INFO, 'No cronjobs(s) to pack...');
 	}
@@ -89,7 +89,7 @@
 			$category->addMany($plugin);
 		}
 
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packed plugins(s) '.count($plugins).' into category.');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packed '.count($plugins).' plugins(s) into category.');
 	} else {
 		$modx->log(modX::LOG_LEVEL_INFO, 'No plugins(s) to pack...');
 	}
@@ -103,7 +103,7 @@
 			$category->addMany($snippet);
 		}
 
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packed snippet(s) '.count($snippets).' into category.');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packed '.count($snippets).' snippet(s) into category.');
 	} else {
 		$modx->log(modX::LOG_LEVEL_INFO, 'No snippet(s) to pack...');
 	}
@@ -137,8 +137,26 @@
 	    )
 	)));
 	
+	if (file_exists($sources['data'].'transport.events.php')) {
+		$events = include $sources['data'].'transport.events.php';
+		
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packaging events(s) into category...');
+		
+		foreach ($events as $key => $value) {
+			$builder->putVehicle($builder->createVehicle($value, array(
+				xPDOTransport::UNIQUE_KEY 		=> 'name',
+				xPDOTransport::PRESERVE_KEYS 	=> true,
+				xPDOTransport::UPDATE_OBJECT 	=> false
+			)));
+		}
+		
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packed '.count($events).' events(s) into category.');
+	} else {
+		$modx->log(modX::LOG_LEVEL_INFO, 'No events(s) to pack...');
+	}
+	
 	if (file_exists($sources['data'].'transport.widgets.php')) {
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packaging in widgets(s) into category...');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packaging widgets(s) into category...');
 		
 		$widgets = include $sources['data'].'transport.widgets.php';
 	
@@ -150,7 +168,7 @@
 			)));
 		}
 		
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packed widgets(s) '.count($widgets).' into category.');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packed '.count($widgets).' widgets(s) into category.');
 	} else {
 		$modx->log(modX::LOG_LEVEL_INFO, 'No widgets(s) to pack...');
 	}
@@ -158,7 +176,7 @@
 	if (file_exists($sources['data'].'transport.settings.php')) {
 		$settings = include $sources['data'].'transport.settings.php';
 		
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packaging in systemsetting(s) into category...');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packaging systemsetting(s) into category...');
 		
 		foreach ($settings as $key => $value) {
 			$builder->putVehicle($builder->createVehicle($value, array(
@@ -168,7 +186,7 @@
 			)));
 		}
 		
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packed systemsetting(s) '.count($settings).' into category.');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packed '.count($settings).' systemsetting(s) into category.');
 	} else {
 		$modx->log(modX::LOG_LEVEL_INFO, 'No systemsetting(s) to pack...');
 	}
@@ -178,7 +196,7 @@
 	if (file_exists($sources['data'].'transport.menu.php')) {
 		$menu = include $sources['data'].'transport.menu.php';
 		
-		$modx->log(modX::LOG_LEVEL_INFO, 'Packaging in menu...');
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packaging menu...');
 		
 		if (null === $menu) {
 			$modx->log(modX::LOG_LEVEL_ERROR, 'No menu to pack.');
@@ -197,7 +215,7 @@
 			    ),
 			));
 			
-			$modx->log(modX::LOG_LEVEL_INFO, 'Adding in PHP resolvers...');
+			$modx->log(modX::LOG_LEVEL_INFO, 'Adding PHP resolvers...');
 			
 			if (is_dir($sources['assets'])) {
 				$vehicle->resolve('file', array(

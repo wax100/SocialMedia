@@ -43,14 +43,6 @@
 		}
 		
 		/**
-		 * @access public.
-		 * @return String.
-		 */
-		public function getUserAgent() {
-			return $this->modx->getOption('socialmedia.api_useragent');
-		}
-		
-		/**
 	     * @access public.
 	     * @param Array $options.
 	     * @return Mixed.
@@ -58,7 +50,7 @@
 		public function requestApi($url, $parameters = array(), $method = 'GET', $options = array()) {
 	        $options = $options + array(
 	            CURLOPT_HEADER 			=> false,
-	            CURLOPT_USERAGENT 		=> $this->getUserAgent(), 
+	            CURLOPT_USERAGENT 		=> 'SocialMediaApi 1.0', 
 	            CURLOPT_RETURNTRANSFER 	=> true,
 	            CURLOPT_TIMEOUT 		=> 10
 	        );

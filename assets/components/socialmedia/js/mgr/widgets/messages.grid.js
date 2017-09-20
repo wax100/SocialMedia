@@ -9,6 +9,16 @@ SocialMedia.grid.Messages = function(config) {
     }, {
 		text		: _('bulk_actions'),
 		menu		: [{
+			text		: _('socialmedia.messages_activate_selected'),
+			type		: true,
+			handler		: this.activateSelectedMessages,
+			scope		: this
+		}, {
+			text		: _('socialmedia.messages_deactivate_selected'),
+			type		: false,
+			handler		: this.activateSelectedMessages,
+			scope		: this
+		}, '-', {
 			text		: _('socialmedia.messages_reset'),
 			handler		: this.resetMessages,
 			scope		: this
@@ -80,8 +90,10 @@ SocialMedia.grid.Messages = function(config) {
         }
     }];
     
+    sm = new Ext.grid.CheckboxSelectionModel();
+    
     columns = new Ext.grid.ColumnModel({
-        columns: [{
+        columns: [sm, {
             header		: _('socialmedia.label_source'),
             dataIndex	: 'source',
             sortable	: true,
@@ -94,7 +106,7 @@ SocialMedia.grid.Messages = function(config) {
             dataIndex	: 'user_name',
             sortable	: true,
             editable	: false,
-            width		: 250,
+            width		: 150,
             fixed		: true,
             renderer	: this.renderUserAccount
         }, {
@@ -124,6 +136,7 @@ SocialMedia.grid.Messages = function(config) {
     });
     
     Ext.applyIf(config, {
+	    sm 			: sm,
     	cm			: columns,
         id			: 'socialmedia-grid-messages',
         url			: SocialMedia.config.connector_url,
@@ -195,29 +208,6 @@ Ext.extend(SocialMedia.grid.Messages, MODx.grid.Grid, {
 		
 		return menu;
     },
-    updateWordFilter: function(btn, e) {
-        if (this.updateWordFilterWindow) {
-	        this.updateWordFilterWindow.destroy();
-        }
-        
-        this.updateWordFilterWindow = MODx.load({
-	        xtype		: 'socialmedia-window-word-filter',
-	        closeAction	: 'close',
-	        listeners	: {
-		        'success'	: {
-		        	fn			: function(data) {
-			        	SocialMedia.config.word_filter = data.a.result.message;
-
-			        	this.refresh();
-			        },
-		        	scope		: this
-		        }
-	         }
-        });
-        
-        
-        this.updateWordFilterWindow.show(e.target);
-    },
     showMessage: function(btn, e) {
     	window.open(this.menu.record.url);
     },
@@ -257,6 +247,46 @@ Ext.extend(SocialMedia.grid.Messages, MODx.grid.Grid, {
             }
     	});
     },
+    activateSelectedMessages: function(btn, e) {
+    	var cs = this.getSelectedAsList();
+    	
+        if (cs === false) {
+        	return false;
+        }
+        
+        if (btn.type) {
+	        var data = {
+		    	title	: _('socialmedia.messages_activate_selected'),
+		    	text	: _('socialmedia.messages_activate_selected_confirm')
+	        };
+	    } else {
+		    var data = {
+		    	title	: _('socialmedia.messages_deactivate_selected'),
+		    	text	: _('socialmedia.messages_deactivate_selected_confirm')
+	        };
+		}
+		
+        MODx.msg.confirm({
+        	title 		: data.title,
+        	text		: data.text,
+        	url			: SocialMedia.config.connector_url,
+        	params		: {
+            	action		: 'mgr/messages/activateselected',
+            	type		: btn.type ? 1 : 0,
+            	ids			: cs
+            },
+            listeners	: {
+            	'success'	: {
+            		fn			: function() {
+	            		this.getSelectionModel().clearSelections(true);
+      
+						this.refresh();
+            		},
+            		scope		: this
+            	}
+            }
+    	});
+    },
     resetMessages: function(btn, e) {
     	MODx.msg.confirm({
         	title 		: _('socialmedia.messages_reset'),
@@ -272,6 +302,29 @@ Ext.extend(SocialMedia.grid.Messages, MODx.grid.Grid, {
             	}
             }
     	});
+    },
+    updateWordFilter: function(btn, e) {
+        if (this.updateWordFilterWindow) {
+	        this.updateWordFilterWindow.destroy();
+        }
+        
+        this.updateWordFilterWindow = MODx.load({
+	        xtype		: 'socialmedia-window-word-filter',
+	        closeAction	: 'close',
+	        listeners	: {
+		        'success'	: {
+		        	fn			: function(data) {
+			        	SocialMedia.config.word_filter = data.a.result.message;
+
+			        	this.refresh();
+			        },
+		        	scope		: this
+		        }
+	         }
+        });
+        
+        
+        this.updateWordFilterWindow.show(e.target);
     },
     renderSource: function(d, c, e) {
 	    c.css = e.json.source;

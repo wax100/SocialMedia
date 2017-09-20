@@ -14,6 +14,9 @@ SocialMedia.panel.Home = function(config) {
             	html			: '<p>' + _('socialmedia.messages_desc') + '</p>',
                 bodyCssClass	: 'panel-desc'
             }, {
+	            html			: 0 == parseInt(MODx.config['socialmedia.cronjob']) ? '<p>' + _('socialmedia.socialmedia_cronjob_notice_desc') + '</p>' : '',
+				cls				: 0 == parseInt(MODx.config['socialmedia.cronjob']) ? 'modx-config-error panel-desc' : ''
+            }, {
                 xtype			: 'socialmedia-grid-messages',
                 cls				: 'main-wrapper',
                 preventRender	: true

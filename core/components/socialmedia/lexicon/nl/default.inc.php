@@ -28,8 +28,8 @@
 	$_lang['setting_socialmedia.branding_url_desc']        					= 'De URL waar de branding knop heen verwijst, indien leeg wordt de branding knop niet getoond.';
     $_lang['setting_socialmedia.branding_url_help']         				= 'Branding (help)';
     $_lang['setting_socialmedia.branding_url_help_desc']    				= 'De URL waar de branding help knop heen verwijst, indien leeg wordt de branding help knop niet getoond.';
-	$_lang['setting_socialmedia.api_useragent']								= 'API useragent';
-	$_lang['setting_socialmedia.api_useragent_desc']						= 'De useragent voor de API\'s. Standaard is "SocialMediaOAuth v1.2.0".';
+	$_lang['setting_socialmedia.cronjob']									= 'Cronjob herinnering';
+	$_lang['setting_socialmedia.cronjob_desc']								= 'Zet deze instelling op "Ja" als er een cronjob is ingesteld voor social media, door deze instelling op "Ja" te zetten word er geen cronjob waarschuwing meer getoond.';
 	$_lang['setting_socialmedia.default_active']							= 'Standaard status';
 	$_lang['setting_socialmedia.default_active_desc']						= 'De standaard status van de social media berichten tijdens het synchroniseren van de social media kanalen.';
 	$_lang['setting_socialmedia.default_sources']							= 'Standaard kanalen';
@@ -101,12 +101,16 @@
 	
 	$_lang['socialmedia.message']											= 'Bericht';
 	$_lang['socialmedia.messages']											= 'Berichten';
-	$_lang['socialmedia.messages_desc']										= 'Hier kun je alle berichten van de social media kanalen beheren. Social media kanalen zoals <span class="twitter">Twitter</span>, <span class="instagram">Instagram</span>, <span class="facebook">Facebook</span>, <span class="linkedin">LinkedIn</span> of <span class="youtube">Youtube</span> worden automatisch gesynchroniseerd met MODX.';
+	$_lang['socialmedia.messages_desc']										= 'Beheer hier de gesynchroniseerde berichten uit de social media kanalen. Social media kanalen zoals <span class="twitter">Twitter</span>, <span class="instagram">Instagram</span>, <span class="facebook">Facebook</span>, <span class="linkedin">LinkedIn</span> of <span class="youtube">Youtube</span> worden automatisch gesynchroniseerd met MODX.';
 	$_lang['socialmedia.message_show']										= 'Bekijk op [[+source]]';
 	$_lang['socialmedia.message_activate']									= 'Bericht weergeven';
 	$_lang['socialmedia.message_activate_confirm']							= 'Weet je zeker dat je dit bericht wilt weergeven?';
 	$_lang['socialmedia.message_deactivate']								= 'Bericht verbergen';
 	$_lang['socialmedia.message_deactivate_confirm']						= 'Weet je zeker dat je dit bericht wilt verbergen?';
+	$_lang['socialmedia.messages_activate_selected']						= 'Geselecteerde berichten weergaven';
+	$_lang['socialmedia.messages_activate_selected_confirm']				= 'Weet je zeker dat je de geselecteerde berichten wilt weergaven?';
+	$_lang['socialmedia.messages_deactivate_selected']						= 'Geselecteerde berichten verbergen';
+	$_lang['socialmedia.messages_deactivate_selected_confirm']				= 'Weet je zeker dat je de geselecteerde berichten wilt verbergen?';
 	$_lang['socialmedia.messages_reset']									= 'Alle berichten verwijderen';
 	$_lang['socialmedia.messages_reset_confirm']							= 'Weet je zeker dat je alle berichten wilt verwijderen?';
 	
@@ -146,5 +150,6 @@
 	$_lang['socialmedia.time_month']										= '1 maand geleden';
 	$_lang['socialmedia.time_months']										= '[[+months]] maanden geleden';
 	$_lang['socialmedia.time_to_long']										= 'Meer dan een half jaar geleden';
+	$_lang['socialmedia.socialmedia_cronjob_notice_desc']					= '<strong>Herinnering:</strong> voor social media moet er een cronjob ingesteld zijn die elk uur alle berichten van de social media kanalen synchroniseert. Deze herinnering kan uit gezet worden via de systeem instellingen.';
 	
 ?>

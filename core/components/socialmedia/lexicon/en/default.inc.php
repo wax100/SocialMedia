@@ -19,17 +19,17 @@
 	 * Suite 330, Boston, MA 02111-1307 USA
 	 */
 
-	$_lang['socialmedia'] 													= 'Social Media';
+	$_lang['socialmedia'] 													= 'Social media';
 	$_lang['socialmedia.desc']												= 'Manage all social media messages.';
 		
-	$_lang['area_socialmedia']												= 'Social Media';
+	$_lang['area_socialmedia']												= 'Social media';
 	
 	$_lang['setting_socialmedia.branding_url']              				= 'Branding';
     $_lang['setting_socialmedia.branding_url_desc']         				= 'The URL of the branding button, if the URL is empty the branding button won\'t be shown.';
     $_lang['setting_socialmedia.branding_url_help']         				= 'Branding (help)';
     $_lang['setting_socialmedia.branding_url_help_desc']   		 			= 'The URL of the branding help button, if the URL is empty the branding help button won\'t be shown.';
-	$_lang['setting_socialmedia.api_useragent']								= 'API useragent';
-	$_lang['setting_socialmedia.api_useragent_desc']						= 'The useragent for the APIs. Default is "SocialMediaOAuth v1.2.0".';
+	$_lang['setting_socialmedia.cronjob']									= 'Cronjob reminder';
+	$_lang['setting_socialmedia.cronjob_desc']								= 'Set this setting to "Yes" if you set up a cronjob for social media, By setting this setting to "Yes" the cronjob notification is no longer displayed.';
 	$_lang['setting_socialmedia.default_active']							= 'Default status';
 	$_lang['setting_socialmedia.default_active_desc']						= 'The default status of the social media messages during the synchronizing of the social media channels.';
 	$_lang['setting_socialmedia.default_sources']							= 'Default channels';
@@ -101,12 +101,16 @@
 	
 	$_lang['socialmedia.message']											= 'Message';
 	$_lang['socialmedia.messages']											= 'Messages';
-	$_lang['socialmedia.messages_desc']										= 'Here you can manage all the message from the social media channels. Social media channels like <span class="twitter">Twitter</span>, <span class="instagram">Instagram</span>, <span class="facebook">Facebook</span>, <span class="linkedin">LinkedIn</span> or <span class="youtube">Youtube</span> will be synchronized automatically with MODX.';
+	$_lang['socialmedia.messages_desc']										= 'Manage here all the synchronized messages of the social media channels. Social media channels like <span class="twitter">Twitter</span>, <span class="instagram">Instagram</span>, <span class="facebook">Facebook</span>, <span class="linkedin">LinkedIn</span> or <span class="youtube">Youtube</span> will be synchronized automatically with MODX.';
 	$_lang['socialmedia.message_show']										= 'Show on [[+source]]';
 	$_lang['socialmedia.message_activate']									= 'Show message';
 	$_lang['socialmedia.message_activate_confirm']							= 'Are you sure you want to show this message?';
 	$_lang['socialmedia.message_deactivate']								= 'Hide message';
 	$_lang['socialmedia.message_deactivate_confirm']						= 'Are you sure you want to hide this message?';
+	$_lang['socialmedia.messages_activate_selected']						= 'Show selected messages';
+	$_lang['socialmedia.massages_activate_selected_confirm']				= 'Are you sure you want show the selected messages.';
+	$_lang['socialmedia.messages_deactivate_selected']						= 'Hide selected messages';
+	$_lang['socialmedia.messages_deactivate_selected_confirm']				= 'Are you sure you want hide the selected messages.';
 	$_lang['socialmedia.messages_reset']									= 'Delete all forms';
 	$_lang['socialmedia.messages_reset_confirm']							= 'Are you sure you want to delete all the messages?';
 	
@@ -146,5 +150,6 @@
 	$_lang['socialmedia.time_month']										= '1 month ago';
 	$_lang['socialmedia.time_months']										= '[[+months]] months ago';
 	$_lang['socialmedia.time_to_long']										= 'More than a half year ago';
+	$_lang['socialmedia.socialmedia_cronjob_notice_desc']					= '<strong>Reminder:</strong> for social media a cronjob is required to synchronize the message of all the social media sources each hour. This notification can turned off in the system settings.';
 	
 ?>

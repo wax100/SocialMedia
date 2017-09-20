@@ -66,6 +66,7 @@
 								}
 							}
 						}
+						
 						break;
 					default:						
 						$criterea = array(

@@ -378,17 +378,15 @@
 						$this->log('Import process for `'.$source->getName().'` with `'.$search.'`.');
 
 						foreach ($source->getData($search) as $value) {
-							$criterea = array(
+							$c = array(
 								'key' 		=> $value['key'],
 								'source'	=> $value['source']
 							);
 							
-							if (null !== ($object = $this->modx->getObject('SocialMediaMessages', $criterea))) {
+							if (null !== ($object = $this->modx->getObject('SocialMediaMessages', $c))) {
 								$count['update'][] = $value['key'];
 							} else {
-								$object = $this->modx->newObject('SocialMediaMessages');
-								
-								$value = array_merge($value, array(
+								$object = $this->modx->newObject('SocialMediaMessages', array(
 									'active' => $this->modx->getOption('socialmedia.default_active', null, 1)
 								));
 								

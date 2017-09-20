@@ -53,6 +53,20 @@
 
 			return parent::initialize();
 		}
+		
+		/**
+		 * @access public.
+		 * @return Mixed.
+		 */
+		public function afterSave() {
+			$this->modx->cacheManager->refresh(array(
+				'socialmedia' => array()
+			));
+			
+			$this->modx->invokeEvent('onSocialMediaUpdate');
+			
+			return parent::afterSave();
+		}
 	}
 	
 	return 'SocialMediaMessagesUpdateProcessor';

@@ -18,8 +18,8 @@
 	 * Social Media; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
 	 * Suite 330, Boston, MA 02111-1307 USA
 	 */
-	 
-	class SocialMediaMessagesResetProcessor extends modObjectProcessor {
+
+	class SocialMediaMessagesActivateSelectedProcessor extends modProcessor {
 		/**
 		 * @access public.
 		 * @var String.
@@ -63,7 +63,15 @@
 				'socialmedia' => array()
 			));
 			
-			$this->modx->removeCollection($this->classKey, array());
+			foreach (explode(',', $this->getProperty('ids')) as $key => $value) {
+				if (false !== ($object = $this->modx->getObject($this->classKey, $value))) {
+					$object->fromArray(array(
+						'active' => $this->getProperty('type')
+					));
+					
+					$object->save();
+				}
+			}
 			
 			$this->modx->invokeEvent('onSocialMediaUpdate');
 			
@@ -71,6 +79,6 @@
 		}
 	}
 	
-	return 'SocialMediaMessagesResetProcessor';
+	return 'SocialMediaMessagesActivateSelectedProcessor';
 	
 ?>

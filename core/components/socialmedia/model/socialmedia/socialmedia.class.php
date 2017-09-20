@@ -68,7 +68,7 @@
 				'css_url' 				=> $assetsUrl.'css/',
 				'assets_url' 			=> $assetsUrl,
 				'connector_url'			=> $assetsUrl.'connector.php',
-				'version'				=> '1.2.0',
+				'version'				=> '1.2.1',
 				'branding_url'			=> $this->modx->getOption('socialmedia.branding_url', null, ''),
 				'branding_help_url'		=> $this->modx->getOption('socialmedia.branding_url_help', null, ''),
 				'word_filter'			=> $this->modx->getOption('socialmedia.word_filter', null, '')

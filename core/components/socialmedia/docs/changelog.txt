@@ -3,6 +3,15 @@ Social Media
 ----------------------
 
 ----------------------
+Version: 1.2.1
+Released: 2017-09-20
+----------------------
+- Some bugfixes
+- Small ExtJS fixes
+- Github issues
+	- Issue #9 fixed
+
+----------------------
 Version: 1.2.0
 Released: 2017-08-31
 ----------------------

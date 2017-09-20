@@ -22,9 +22,9 @@
 	
 	$settings[2] = $modx->newObject('modSystemSetting');
 	$settings[2]->fromArray(array(
-		'key' 		=> PKG_NAME_LOWER.'.api_useragent',
-		'value' 	=> 'SocialMediaOAuth v'.PKG_VERSION,
-		'xtype' 	=> 'textfield',
+		'key' 		=> PKG_NAME_LOWER.'.cronjob',
+		'value' 	=> '0',
+		'xtype' 	=> 'combo-boolean',
 		'namespace' => PKG_NAME_LOWER,
 		'area' 		=> PKG_NAME_LOWER
 	), '', true, true);
