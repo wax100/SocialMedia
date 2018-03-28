@@ -76,7 +76,15 @@
 		 * @return Object.
 		 */
 		public function prepareQueryBeforeCount(xPDOQuery $c) {
-			$criterea = $this->getProperty('criterea');
+			$crit = $this->socialmedia->getCriteriaAccess();            
+            
+            if (count($crit) > 0) {
+				$c->where(array(
+					'criterea:IN' => $crit
+				));
+			}
+            
+            $criterea = $this->getProperty('criterea');
 			
 			if (!empty($criterea)) {
 				$c->where(array(

@@ -72,13 +72,21 @@
 		 * @return Object.
 		 */
 		public function prepareQueryBeforeCount(xPDOQuery $c) {
-			$c->groupby('criterea');
+			$crit = $this->socialmedia->getCriteriaAccess();            
+            
+            if (count($crit) > 0) {
+				$c->where(array(
+					'criterea:IN' => $crit
+				));
+			}
+            
+            $c->groupby('criterea');
 			
 			return $c;
 		}
 		
 		/**
-		 * @access public.
+            * @access public.
 		 * @param Object $query.
 		 * @return Array.
 		 */
